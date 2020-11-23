@@ -11,35 +11,40 @@ public class Sorting
     {
         File f = new File("SRC/Text/Text.txt");
         Scanner sc = new Scanner(f);
+        String text = "";
 
-        double countWords = 0;
-        double numVowels = 0;
-        while(sc.hasNext())
-        {
-            //turning every word into a string
-            String temp = sc.next();
-            //sending the words to the method one at a time
-            numVowels = numVowels + numVowels(temp);
+       while (sc.hasNext()) { text = text + " " + sc.next().toLowerCase(); }
 
-            countWords++;
-        }
-        System.out.println("Number of vowels per word is: " + (numVowels/countWords));
-        System.out.println("The number of vowels total is " + numVowels);
+       String[] sorterText = text.split(" ");
+       sortStrings(sorterText);
     }
 
-    public static int numVowels(String s)
+    public static void sortStrings(String [] input)
     {
-        int count = 0;
-        //changes the words to lowercase
-        s = s.toLowerCase();
-
-        for(char c : s.toCharArray())
+        for(int i = 0; i < input.length -1; i++)
         {
-            if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u')
+            int least = i;
+
+            for(int j = i+1; j < input.length; j++)
             {
-                count ++;
+                if(input[j].compareTo(input[least]) < 1)
+                {
+                    least = j;
+                }
             }
+            swap(input, i, least);
         }
-        return count;
+
+        for(String i : input)
+        {
+            System.out.println(i);
+        }
+    }
+
+    public static void swap(String [] input, int i, int j)
+    {
+        String temp = input[i];
+        input[i] = input[j];
+        input[j] = temp;
     }
 }
